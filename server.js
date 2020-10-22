@@ -1,11 +1,13 @@
 const express= require('express');
-const { connect } = require('mongoose');
 const connectDB= require('./config/db');
 
 const app= express();
 
 //Connecting Database
 connectDB();
+
+//Initiating middlewares
+app.use(express.json());
 
 app.get('/', (req, res)=>{
     res.send('API is running');
