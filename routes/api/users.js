@@ -3,8 +3,9 @@ const router= express.Router();
 const { body, validationResult }= require('express-validator');
 const gravatar= require('gravatar');
 const bcrypt= require('bcryptjs');
+const jwt= require('jsonwebtoken');
+const config= require('config');
 const User= require('../../models/User');
-const mongoose= require('mongoose');
 
 // @route POST api/users
 // @desc register users
@@ -39,7 +40,14 @@ router.post('/', [
         const salt= await bcrypt.genSalt(10)
         user.password= await bcrypt.hash(password, salt)
         await user.save()
-        res.send('User registered')
+        
+        //jwt
+        const payload= {
+            user: {
+                id: user.id
+            }
+        }
+        
     }catch(err){
         console.log(err.message)
         res.status(500).send('Server Error')
