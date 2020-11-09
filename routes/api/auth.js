@@ -13,7 +13,7 @@ const router= express.Router();
 
 router.get('/', auth, async (req, res)=> {
     try{
-        const user= await User.findById(req.user).select('-password');
+        const user= await User.findById(req.user.id).select('-password');
         res.send(user)
     }catch(err){
         console.error(err.message)
@@ -55,7 +55,7 @@ router.post('/', [
         jwt.sign(
             payload, 
             config.get('jwtSecret'),
-            { expiresIn: 360000 },
+            { expiresIn: 3600000 },
             (err, token) => {
                 if(err) throw err
                 res.json({ token })
