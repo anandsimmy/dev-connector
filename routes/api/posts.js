@@ -174,7 +174,7 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
         
         //check comment exists
         if(!commentToDelete){
-            return res.status(404).json({ msg: 'Comment not found in this post' })
+            return res.status(404).json({ msg: 'Comment not found' })
         }
 
         //check if user is authorized to delete the comment
