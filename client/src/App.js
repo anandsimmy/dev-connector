@@ -6,7 +6,12 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import './App.css';
 
+//redux
+import { Provider } from 'react-redux'
+import store from './store'
+
 const App= () => (
+  <Provider store={store}>
     <Router>
       <Navbar />
       <Route exact path='/' component={Landing} />
@@ -17,6 +22,7 @@ const App= () => (
         </Switch>
       </section>
     </Router>
+  </Provider>
 )
 
 export default App;
