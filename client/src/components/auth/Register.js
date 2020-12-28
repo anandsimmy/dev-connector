@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { setAlert } from '../../actions/alert'
 
 const Register= ({ setAlert }) => {
@@ -85,7 +86,12 @@ const Register= ({ setAlert }) => {
     )
 }
 
+Register.propTypes= {
+    setAlert: PropTypes.func.isRequired
+}
+
 {/* using objects for mapDispatchToProps */}
 const mapDispatchToProps= { setAlert }
 
 export default connect(null, mapDispatchToProps)(Register)
+
