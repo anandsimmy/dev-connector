@@ -85,8 +85,7 @@ const Register= ({ setAlert }) => {
     )
 }
 
-const mapDispatchToProps= (dispatch) => ({
-    setAlert: (msg, alertType, timeout)=>dispatch(setAlert(msg, alertType, timeout))
-})
+{/* using objects for mapDispatchToProps */}
+const mapDispatchToProps= { setAlert }
 
-export default connect(null, { setAlert })(Register)
+export default connect(null, mapDispatchToProps)(Register)
