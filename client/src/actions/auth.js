@@ -19,10 +19,11 @@ export const registerUser= ({ name, email, password }) => async (dispatch) => {
             type: REGISTER_SUCCESS,
             payload: res.data
         })
+        dispatch(setAlert('Successfully Registered', 'success'))
 
     }catch(err){
         const errors= err.response.data.errors
-        errors.forEach(error => dispatch(setAlert(error.msg), 'danger'))
+        errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
         dispatch({
             type: REGISTER_FAIL
         })
