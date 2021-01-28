@@ -9,10 +9,10 @@ const Navbar= ({ auth: { isAuthenticated, loading }, logoutUser }) => {
     const authLinks= (
     <ul>
         <li>
-            <a onClick={logoutUser} href='#!'>
+            <Link onClick={logoutUser} to='/'>
                 <i className="fas fa-sign-out-alt"></i>{' '}
                 <span className='hide-sm'>Logout</span>
-            </a>
+            </Link>
         </li>
         
     </ul>)
