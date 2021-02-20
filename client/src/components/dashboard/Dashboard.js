@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { getCurrentProfile } from '../../actions/profile'
 
-const Dashboard= ({ getCurrentProfile, auth, profile }) => {
+const Dashboard= ({ getCurrentProfile, auth }) => {
 
     useEffect(() => {
         getCurrentProfile()
