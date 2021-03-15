@@ -1,10 +1,12 @@
 const express= require('express');
 const request= require('request');
 const config= require('config');
+const { body, validationResult }= require('express-validator');
 const auth= require('../../middleware/auth');
+
+const Post= require('../../models/Post')
 const Profile= require('../../models/Profile');
 const User= require('../../models/User');
-const { body, validationResult }= require('express-validator');
 
 const router= express.Router();
 
@@ -135,6 +137,10 @@ router.get('/user/:user_id', async (req, res) => {
 // @access private
 router.delete('/',auth, async (req, res) => {
     try{
+        
+        //Remove Posts
+        await Post.deleteMany({ user: req.user.id })
+        
         //Remove profile
         await Profile.findOneAndRemove({ user: req.user.id })
         
@@ -165,6 +171,7 @@ router.put('/experience', [ auth,[
         company,
         current,
         from,
+        to,
         description
     }= req.body;
     const newExp= {
@@ -172,6 +179,7 @@ router.put('/experience', [ auth,[
         company,
         current,
         from,
+        to,
         description
     }
     try{
@@ -226,6 +234,7 @@ router.put('/education', [ auth,[
         fieldofstudy,
         current,
         from,
+        to,
         description
     }= req.body;
     const newEdu= {
@@ -234,6 +243,7 @@ router.put('/education', [ auth,[
         fieldofstudy,
         current,
         from,
+        to,
         description
     }
     try{
