@@ -84,7 +84,7 @@ router.delete('/:id', auth, async (req, res) => {
     
         await post.remove()
 
-        res.json({ msg: 'Post removed' })
+        res.json({ msg: 'Post removed successfully' })
     } catch (err) {
         console.error(err.message)
         if(err.kind === 'ObjectId'){
@@ -119,7 +119,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     try {
         const post= await Post.findById(req.params.id)
         if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0){
-            return res.status(400).json({ msg: 'Post has not yet been liked' })
+            return res.status(400).json({ msg: 'Post not liked yet' })
         }
         const removeIndex= post.likes.map(like => like.user.toString()).indexOf(req.user.id)
         post.likes.splice(removeIndex, 1)
