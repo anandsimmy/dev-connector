@@ -47,7 +47,7 @@ const profileReducer= (state= initialState, action) => {
                 ...state,
                 error: payload,
                 loading: false,
-                profile: null
+                profile: {}
             }
         default:
             return state
