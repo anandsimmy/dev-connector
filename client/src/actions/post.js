@@ -13,6 +13,10 @@ import {
     UNLIKE_ERROR,
     GET_POST_BY_ID,
     GET_POST_BY_ID_ERROR,
+    ADD_COMMENT,
+    ADD_COMMENT_ERROR,
+    DELETE_COMMENT,
+    DELETE_COMMENT_ERROR,
 } from './types'
 
 export const getPosts= () => async dispatch => {
@@ -124,5 +128,47 @@ export const unlikePost= (postId) => async dispatch => {
             payload: { msg: err.response?.statusText, status: err.response?.status }
         })
         dispatch(setAlert(err?.response?.data?.msg, 'danger', 2000))
+    }
+}
+
+export const addComment= ({ text, postId }) => async dispatch => {
+    try {
+        const config= {
+            'headers': {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const res= await axios.post(`/api/posts/comment/${postId}`, { text }, config)
+
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        })
+
+        dispatch(setAlert('Comment added successfully', 'success', 2000))
+    } catch (err) {
+        dispatch({
+            type: ADD_COMMENT_ERROR, 
+            payload: { msg: err.response?.statusText, status: err.response?.status }
+        })
+    }
+}
+
+export const deleteComment= ({ postId, commentId }) => async dispatch => {
+    try {
+        axios.delete(`/api/posts/comment/${postId}/${commentId}`)
+
+        dispatch({
+            type: DELETE_COMMENT,
+            payload: commentId
+        })
+
+        dispatch(setAlert('Comment removed successfully', 'success', 2000))
+    } catch (err) {
+        dispatch({
+            type: DELETE_COMMENT_ERROR, 
+            payload: { msg: err.response?.statusText, status: err.response?.status }
+        })   
     }
 }
