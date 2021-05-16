@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import PropTypes from 'prop-types'
 
-const PostComments= ({ comments, auth }) => {
+const PostComments= ({ postId, deleteComment, comments, auth }) => {
     return (
         <div className="comments">
         {
@@ -29,7 +29,10 @@ const PostComments= ({ comments, auth }) => {
                         </p>
                         {
                             auth.user?._id === user && (
-                                <button type="button" className="btn btn-danger">
+                                <button type="button" className="btn btn-danger" onClick={
+                                        () => {deleteComment({ postId, commentId: _id })}
+                                    }
+                                >
                                     <i className="fas fa-times"></i>
                                 </button>
                             )
@@ -44,13 +47,17 @@ const PostComments= ({ comments, auth }) => {
 }
 
 PostComments.defaultProps= {
+    postId: '',
     comments: [],
-    auth: {}
+    auth: {},
+    deleteComment: () => {},
 }
 
 PostComments.propTypes = {
+    postId: PropTypes.string.isRequired,
     comments: PropTypes.array.isRequired,
     auth: PropTypes.object.isRequired,
+    deleteComment: PropTypes.func.isRequired,
 }
 
 export default PostComments
