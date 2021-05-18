@@ -10,7 +10,11 @@ import {
     UNLIKE_ERROR,
     DELETE_POST_ERROR,
     GET_POST_BY_ID,
-    GET_POST_BY_ID_ERROR
+    GET_POST_BY_ID_ERROR,
+    ADD_COMMENT,
+    ADD_COMMENT_ERROR,
+    DELETE_COMMENT,
+    DELETE_COMMENT_ERROR,
 } from '../actions/types'
 
 const initialState= {
@@ -52,12 +56,27 @@ const postReducer= (state= initialState, action) => {
                 ...state,
                 post: payload
             }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                post: { ...state.post, comments: payload }
+            }
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                post: {
+                    ...state.post,
+                    comments: state.post?.comments?.filter(comment => comment._id !== payload)
+                }
+            }
         case POST_ERROR:
         case ADD_POST_ERROR:
         case DELETE_POST_ERROR:
         case LIKE_ERROR:
         case UNLIKE_ERROR:
-        case GET_POST_BY_ID_ERROR:    
+        case GET_POST_BY_ID_ERROR:   
+        case ADD_COMMENT_ERROR: 
+        case DELETE_COMMENT_ERROR:
             return {
                 ...state,
                 error: payload,
