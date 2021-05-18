@@ -43,7 +43,9 @@ const Post= ({ match: { params: { postId } }, auth, getPostById, deleteComment, 
                 </div>
             </div>
 
-            
+            <NewPostComment
+                postId={_id}
+            />
 
             <PostComments
                 postId={_id}
