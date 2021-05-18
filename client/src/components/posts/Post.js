@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 import PostComments from './PostComments'
 import NewPostComment from './NewPostComment'
-import { getPostById } from '../../actions/post'
+import { getPostById, deleteComment } from '../../actions/post'
 import PropTypes from 'prop-types'
 
-const Post= ({ match: { params: { postId } }, auth, getPostById, post: {
+const Post= ({ match: { params: { postId } }, auth, getPostById, deleteComment, post: {
+    _id,
     name,
     avatar,
     user, 
@@ -42,9 +43,14 @@ const Post= ({ match: { params: { postId } }, auth, getPostById, post: {
                 </div>
             </div>
 
-            <NewPostComment />
+            
 
-            <PostComments comments={comments} auth={auth} />
+            <PostComments
+                postId={_id}
+                comments={comments}
+                deleteComment={deleteComment}
+                auth={auth} 
+            />
         </>
     )
 }
@@ -61,5 +67,5 @@ const mapStateToProps= state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, { getPostById })(Post)
+export default connect(mapStateToProps, { getPostById, deleteComment })(Post)
 
